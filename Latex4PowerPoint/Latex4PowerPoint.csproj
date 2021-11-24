@@ -261,7 +261,9 @@
     <None Include="Resources\Language.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\extern\ScintillaNET\SciLexer.dll" />
+    <Content Include="..\extern\ScintillaNET\SciLexer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\extern\ScintillaNET\SciLexer64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
