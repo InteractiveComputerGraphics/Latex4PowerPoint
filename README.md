@@ -3,6 +3,8 @@ This is a Latex Add-In for Powerpoint. It enables to add and edit Latex equation
 
 With the add-in you can open a dialog, enter something like $y = \sum_{i=0}^n x_i$ and you will get an equation in your slide. This is done by embedding  your Latex code in a template. Then, latex.exe is called in order to create a DVI which is afterwards converted in a PNG file by Ghostscript. The PNG is then inserted in your slide. Your Latex code is stored in  the generated PowerPoint object. Hence, you can edit your code later.
 
+Note, this add-in was previously hosted on sourceforge.net as "LatexAddin". 
+
 ![screenshot](screenshot.jpg)
 
 ## Install Add-In
