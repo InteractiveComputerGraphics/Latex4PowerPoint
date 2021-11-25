@@ -23,3 +23,38 @@ To build the add-in perform the following steps:
   * If you are not sure if you have a 32bit or 64bit version of PowerPoint, just start PowerPoint and open "File" -> "Account" -> "About PowerPoint".
 * build the add-in
 * start PowerPoint and the add-in should be loaded automatically
+
+## Use Add-In
+
+First, you must set the MiKTex path. That is the location of latex.exe
+
+### Latex template
+
+If you need other packages or want to define your own commands, you can edit the latex template. Just open "Options" - > "Edit Latex template" and it will be opened in a text editor. The default template looks like this:
+
+```tex
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath} 
+\usepackage[utf8]{inputenc} 
+\usepackage{bbm} 
+\usepackage{ae,aecompl} 
+\usepackage{color}
+\newcommand{\changefont}[3]{\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+\setlength{\parindent}{0pt}
+\begin{document} 
+\thispagestyle{empty}
+
+${Content}
+
+\end{document}
+```
+
+Don't remove the command "\changefont" and the placeholder "${Content}" since they are needed by the add-in. "${Content}" will be replaced by your latex code.
+
+### Code snippets & auto completion
+
+Code snippets and auto completion are very helpful to write down equations very quickly. Auto completion can be performed by pressing "Ctrl + Space". Currently, the auto completion only knows some of the latex commands. However, you can easily extend the list of commands by editing the file "Language.xml" which is in the same folder as the Latex template. 
+
+Code snippets can be added by pressing "Ctrl + J".  Currently, there are only a few snippets available. However, you can define new ones by editing the file "Language.xml" which is in the same folder as the Latex template. 
+
+
