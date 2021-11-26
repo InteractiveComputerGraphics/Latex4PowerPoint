@@ -397,7 +397,7 @@ namespace Latex4PowerPoint
             return true;
         }
 
-        public static bool executeDviPng(LatexEquation equation, bool usePreview, bool firstRun)
+        public static bool executeDviPng(LatexEquation equation)
         {
             string appPath = AddinUtilities.getAppDataLocation();
             Directory.SetCurrentDirectory(appPath);
@@ -421,32 +421,10 @@ namespace Latex4PowerPoint
             }
 
             string output = "";
-            if (firstRun)
-            {
-                // In first run, run dvipng only once
-                if (!startProcess("cmd.exe", "/c \"" + mgr.SettingsData.miktexPath + "\\dvipng.exe\" -T tight -bg Transparent --depth --noghostscript -D " + dpiValue.ToString() + " -o teximport.png teximport.dvi", true, false, out output))
+            if (!startProcess("cmd.exe", "/c \"" + mgr.SettingsData.miktexPath + "\\dvipng.exe\" -T tight -bg Transparent --depth --noghostscript -D " + dpiValue.ToString() + " -o teximport.png teximport.dvi", true, false, out output))
+                if (!startProcess("cmd.exe", "/c \"" + mgr.SettingsData.miktexPath + "\\dvipng.exe\" -T tight -bg Transparent --depth --noghostscript -D " + dpiValue.ToString() + " -o teximport.png teximport.dvi", true, true, out output))
                     return false;
-            }
-            else
-            {
-                if (!startProcess("cmd.exe", "/c \"" + mgr.SettingsData.miktexPath + "\\dvipng.exe\" -T tight -bg Transparent --depth --noghostscript -D " + dpiValue.ToString() + " -o teximport.png teximport.dvi", true, false, out output))
-                    if (!startProcess("cmd.exe", "/c \"" + mgr.SettingsData.miktexPath + "\\dvipng.exe\" -T tight -bg Transparent --depth --noghostscript -D " + dpiValue.ToString() + " -o teximport.png teximport.dvi", true, true, out output))
-                        return false;
-            }
 
-            if (usePreview)
-            {
-                try
-                {
-                    System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(output, @"depth=(\S*)]");
-                    string depthStr = match.Groups[1].Value;
-                    equation.m_offset = Int32.Parse(depthStr);
-                }
-                catch
-                {
-                    equation.m_offset = 0;
-                }
-            }
             return true;
         }
 
@@ -483,37 +461,20 @@ namespace Latex4PowerPoint
                 if (!startProcess("cmd.exe", "/c \"" + mgr.SettingsData.miktexPath + "\\dvipng.exe\" -T tight -bg Transparent --depth --noghostscript -D " + dpiValue.ToString() + " -o teximport%d.png teximport.dvi", true, true, out output))
                     return false;
 
-            try
-            {
-                System.Text.RegularExpressions.MatchCollection matches = System.Text.RegularExpressions.Regex.Matches(output, @"depth=(\S*)\]");
-                if (matches.Count == equations.Count)
-                {
-                    LatexEquation [] eq = equations.ToArray();
-                    for (int i = 0; i < equations.Count; i++)
-                    {
-                        string depthStr = matches[i].Groups[1].Value;
-                        eq[i].m_offset = Int32.Parse(depthStr);
-                    }
-                }
-            }
-            catch
-            {
-                //equation.m_offset = 0;
-            }
             return true;
         }
 
-        public static bool createLatexPng(LatexEquation equation, bool usePreview, bool firstRun)
+        public static bool createLatexPng(LatexEquation equation)
         {
             // Check paths
             SettingsManager mgr = SettingsManager.getCurrent();            
 
             string appPath = AddinUtilities.getAppDataLocation();
             Directory.SetCurrentDirectory(appPath);
-            LatexFileGenerator.writeTexFile(appPath + "\\teximport.tex", equation, usePreview);
+            LatexFileGenerator.writeTexFile(appPath + "\\teximport.tex", equation);
             if (!executeMikTex())
                 return false;
-            if (!executeDviPng(equation, usePreview, firstRun))
+            if (!executeDviPng(equation))
                 return false;
 
             return true;

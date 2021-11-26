@@ -10,8 +10,6 @@ namespace Latex4PowerPoint
 {
     public partial class ThisAddIn
     {
-        private SelectionHandler m_selectionHandler;
-
         static private ThisAddIn m_current;
         static public ThisAddIn Current
         {
@@ -24,15 +22,10 @@ namespace Latex4PowerPoint
 
             AddinUtilities.initFonts();
             AddinUtilities.copyLatexTemplate("LatexTemplate.txt", Properties.Resources.LatexTemplate);
-            AddinUtilities.copyLatexTemplate("LatexInlineTemplate.txt", Properties.Resources.LatexInlineTemplate);
-
-            m_selectionHandler = new SelectionHandler();
-            m_selectionHandler.init();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            m_selectionHandler.cleanup();
         }
 
         #region VSTO generated code

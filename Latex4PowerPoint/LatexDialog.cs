@@ -270,22 +270,16 @@ namespace Latex4PowerPoint
 
             m_latexEquation = new LatexEquation(m_scintilla.Text, size, dpiValue, m_textColor, (LatexFont)comboBoxFont.SelectedItem,
                                                       (LatexFontSeries)comboBoxSeries.SelectedItem,
-                                                      (LatexFontShape)comboBoxShape.SelectedItem, false);
+                                                      (LatexFontShape)comboBoxShape.SelectedItem);
 
-            // Run once with preview to get depth value
-            m_finishedSuccessfully = AddinUtilities.createLatexPng(m_latexEquation, true, true);            
 
-            if (m_finishedSuccessfully)
+            m_finishedSuccessfully = AddinUtilities.createLatexPng(m_latexEquation);
+            if (createShape)
             {
-                // Run once without to get correct tight image
-                AddinUtilities.createLatexPng(m_latexEquation, false, false);
-                if (createShape)
-                {
-                    AddinUtilities.createLatexShape("teximport.png", m_latexEquation);
-                    m_latexEquation.m_shape.Select(Microsoft.Office.Core.MsoTriState.msoTrue);
-                    AddinUtilities.centerLatexShape(m_latexEquation);
-                    alignLatexShape(m_latexEquation);
-                }
+                AddinUtilities.createLatexShape("teximport.png", m_latexEquation);
+                m_latexEquation.m_shape.Select(Microsoft.Office.Core.MsoTriState.msoTrue);
+                AddinUtilities.centerLatexShape(m_latexEquation);
+                alignLatexShape(m_latexEquation);
             }
             return m_finishedSuccessfully;
         }
@@ -294,31 +288,25 @@ namespace Latex4PowerPoint
         {
             if (m_textRange != null)
             {
-                System.Drawing.FontFamily family = AddinUtilities.getFontFamily(m_textRange);
-                //float height = (float)(m_textRange.BoundHeight * ((float)family.GetCellAscent(System.Drawing.FontStyle.Regular) / (float)family.GetLineSpacing(System.Drawing.FontStyle.Regular)));
-                float lineSpacing = m_textRange.Font.Size*(float)family.GetLineSpacing(System.Drawing.FontStyle.Regular) / (float)family.GetEmHeight(System.Drawing.FontStyle.Regular);
-                float spaceBefore = 0.0f;
-                if (m_textRange.BoundHeight > lineSpacing)
-                    spaceBefore = m_textRange.ParagraphFormat.SpaceBefore * lineSpacing;
-                float height = spaceBefore + (m_textRange.Font.Size * (float)family.GetCellAscent(System.Drawing.FontStyle.Regular)) / (float)family.GetEmHeight(System.Drawing.FontStyle.Regular);
-                float offset = (float)equation.m_offset / (float)equation.m_imageHeight;
+                //System.Drawing.FontFamily family = AddinUtilities.getFontFamily(m_textRange);
+                ////float height = (float)(m_textRange.BoundHeight * ((float)family.GetCellAscent(System.Drawing.FontStyle.Regular) / (float)family.GetLineSpacing(System.Drawing.FontStyle.Regular)));
+                //float lineSpacing = m_textRange.Font.Size*(float)family.GetLineSpacing(System.Drawing.FontStyle.Regular) / (float)family.GetEmHeight(System.Drawing.FontStyle.Regular);
+                //float spaceBefore = 0.0f;
+                //if (m_textRange.BoundHeight > lineSpacing)
+                //    spaceBefore = m_textRange.ParagraphFormat.SpaceBefore * lineSpacing;
+                //float height = spaceBefore + (m_textRange.Font.Size * (float)family.GetCellAscent(System.Drawing.FontStyle.Regular)) / (float)family.GetEmHeight(System.Drawing.FontStyle.Regular);
+                //float offset = (float)equation.m_offset / (float)equation.m_imageHeight;
 
                 //// Test
                 //int slideId = ThisAddIn.Current.Application.ActiveWindow.Selection.SlideRange.SlideID;
                 //Microsoft.Office.Interop.PowerPoint.Slide slide = ThisAddIn.Current.Application.ActivePresentation.Slides.FindBySlideID(slideId);
-                //slide.Shapes.AddLine(m_textRange.BoundLeft, m_textRange.BoundTop + height + spaceBefore, m_textRange.BoundLeft + 50, m_textRange.BoundTop + height + spaceBefore);
-                //slide.Shapes.AddLine(m_textRange.BoundLeft, m_textRange.BoundTop + height + spaceBefore, m_textRange.BoundLeft + 50, m_textRange.BoundTop + height + offset * equation.m_shape.Height + spaceBefore);
-                //slide.Shapes.AddLine(m_textRange.BoundLeft - 5, m_textRange.BoundTop, m_textRange.BoundLeft - 5, m_textRange.BoundTop + lineSpacing + spaceBefore);
-                //float asc = m_textRange.Font.Size * (float)family.GetCellAscent(System.Drawing.FontStyle.Regular) / (float)family.GetEmHeight(System.Drawing.FontStyle.Regular);
-                //float ds = m_textRange.Font.Size * (float)family.GetCellDescent(System.Drawing.FontStyle.Regular) / (float)family.GetEmHeight(System.Drawing.FontStyle.Regular);
-                //slide.Shapes.AddLine(m_textRange.BoundLeft - 15, m_textRange.BoundTop, m_textRange.BoundLeft - 15, m_textRange.BoundTop + asc + spaceBefore);
-                //slide.Shapes.AddLine(m_textRange.BoundLeft - 25, m_textRange.BoundTop, m_textRange.BoundLeft - 25, m_textRange.BoundTop + asc + ds + spaceBefore);
+                //slide.Shapes.AddLine(m_textRange.BoundLeft, m_textRange.BoundTop, m_textRange.BoundLeft + m_textRange.BoundWidth, m_textRange.BoundTop + m_textRange.BoundHeight);
                 //// Test                
 
                 if (equation.m_shape != null)
                 {
-                    equation.m_shape.Left = m_textRange.BoundLeft + 2 * m_textRange.BoundWidth;
-                    equation.m_shape.Top = m_textRange.BoundTop + height - (1.0f - offset) * equation.m_shape.Height;
+                    equation.m_shape.Left = m_textRange.BoundLeft + m_textRange.BoundWidth;
+                    equation.m_shape.Top = m_textRange.BoundTop + m_textRange.BoundHeight - equation.m_shape.Height; // - offset * equation.m_shape.Height;
                 }
             }
         }

@@ -184,7 +184,6 @@
     <Compile Include="ErrorDialog.designer.cs">
       <DependentUpon>ErrorDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="InlineLatex.cs" />
     <Compile Include="LatexDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +212,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon.resx">
       <DependentUpon>Ribbon.cs</DependentUpon>
@@ -237,7 +237,6 @@
     <Compile Include="Ribbon.designer.cs">
       <DependentUpon>Ribbon.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectionHandler.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ShapeTags.cs" />
     <Compile Include="ThisAddIn.cs">
@@ -250,9 +249,6 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LatexInlineTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LatexTemplate.txt" />

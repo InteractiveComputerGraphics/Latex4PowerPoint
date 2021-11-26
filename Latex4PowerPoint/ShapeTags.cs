@@ -17,7 +17,6 @@ namespace Latex4PowerPoint
             equation.m_shape.Tags.Add("LatexFont", equation.m_font.fontName);
             equation.m_shape.Tags.Add("LatexFontSeries", equation.m_fontSeries.fontSeries);
             equation.m_shape.Tags.Add("LatexFontShape", equation.m_fontShape.fontShape);
-            equation.m_shape.Tags.Add("LatexIsInline", equation.m_isInline.ToString());
             equation.m_shape.Tags.Add("LatexTextShapeId", equation.m_textShapeId.ToString());
             equation.m_shape.Tags.Add("LatexAddinVersion", AddinUtilities.getVersionString());
         }
@@ -33,8 +32,7 @@ namespace Latex4PowerPoint
                         getLatexTextColor(s),
                         getLatexFont(s),
                         getLatexFontSeries(s),
-                        getLatexFontShape(s),
-                        getLatexIsInline(s));
+                        getLatexFontShape(s));
             }
             return null;
         }
@@ -89,20 +87,6 @@ namespace Latex4PowerPoint
                 fontSizeValue = AddinUtilities.getFloat(str, 12.0f);
             return fontSizeValue;
         }
-
-        public static bool getLatexIsInline(Shape s)
-        {
-            string str = s.Tags["LatexIsInline"];
-            if ((str != null) && (str != ""))
-            {
-                bool value = false;
-                if (str != null)
-                    value = AddinUtilities.getBool(str, false);
-                return value;
-            }
-            return false;
-        }
-
 
         public static int getLatexTextShapeId(Shape s)
         {
