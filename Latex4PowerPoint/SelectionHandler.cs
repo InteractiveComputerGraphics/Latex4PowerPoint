@@ -9,7 +9,7 @@ namespace Latex4PowerPoint
     public class SelectionHandler
     {
         Microsoft.Office.Interop.PowerPoint.EApplication_WindowSelectionChangeEventHandler m_eventHandler = null;
-        Microsoft.Office.Interop.PowerPoint.Shape m_oldShape = null;
+        //Microsoft.Office.Interop.PowerPoint.Shape m_oldShape = null;
 
         public void init()
         {
@@ -24,36 +24,36 @@ namespace Latex4PowerPoint
 
         void Application_WindowSelectionChange(Microsoft.Office.Interop.PowerPoint.Selection Sel)
         {
-            Microsoft.Office.Interop.PowerPoint.Shape shape = null;
-            bool run = false;
-            if (Sel.Type == Microsoft.Office.Interop.PowerPoint.PpSelectionType.ppSelectionNone)
-            {
-                run = true;
-            }
-            else //if (Sel.Type == Microsoft.Office.Interop.PowerPoint.PpSelectionType.ppSelectionShapes)
-            {
-                if (Sel.ShapeRange.Count > 0)
-                {
-                    shape = Sel.ShapeRange[1];
+            //Microsoft.Office.Interop.PowerPoint.Shape shape = null;
+            //bool run = false;
+            //if (Sel.Type == Microsoft.Office.Interop.PowerPoint.PpSelectionType.ppSelectionNone)
+            //{
+            //    run = true;
+            //}
+            //else if (Sel.Type == Microsoft.Office.Interop.PowerPoint.PpSelectionType.ppSelectionShapes)
+            //{
+            //    if (Sel.ShapeRange.Count > 0)
+            //    {
+            //        shape = Sel.ShapeRange[1];
 
-                    // Check if inline equation shape was selected
-                    selectTextShape(shape);
-                    if (shape != m_oldShape)
-                    {
-                        //removeInlineEquationShapes(shape);
-                        run = true;
+            //        // Check if inline equation shape was selected
+            //        selectTextShape(shape);
+            //        if (shape != m_oldShape)
+            //        {
+            //            //removeInlineEquationShapes(shape);
+            //            run = true;
 
-                    }
-                }
-            }
-            if (run)
-            {                
-                if (m_oldShape != null)
-                {
-                    InlineLatex.createInlineEquations(m_oldShape);
-                }
-                m_oldShape = shape;
-            }
+            //        }
+            //    }
+            //}
+            //if (run)
+            //{                
+            //    if (m_oldShape != null)
+            //    {
+            //        InlineLatex.createInlineEquations(m_oldShape);
+            //    }
+            //    m_oldShape = shape;
+            //}
         }
 
         /** Select the text shape if an inline equation shape was selected.

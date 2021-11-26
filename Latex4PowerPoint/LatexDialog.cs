@@ -139,8 +139,16 @@ namespace Latex4PowerPoint
                 m_scintilla.Text = eq.m_code;
                 m_scintilla.Selection.SelectAll();
 
-                comboBoxFontSize.Text = eq.m_fontSize.ToString();
+                string fontSizeStr = eq.m_fontSize.ToString();
+                if (!comboBoxFontSize.Items.Contains(fontSizeStr))
+                    comboBoxFontSize.Items.Add(fontSizeStr);
+                comboBoxFontSize.Text = fontSizeStr;
+
+                string dpiStr = eq.m_dpi.ToString();
+                if (!comboBoxDPI.Items.Contains(dpiStr))
+                    comboBoxDPI.Items.Add(dpiStr);
                 comboBoxDPI.Text = eq.m_dpi.ToString();
+
                 comboBoxFont.Text = eq.m_font.fontName;
                 comboBoxSeries.Text = eq.m_fontSeries.fontSeries;
                 comboBoxShape.Text = eq.m_fontShape.fontShape;

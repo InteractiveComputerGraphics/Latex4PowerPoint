@@ -19,7 +19,7 @@ namespace Latex4PowerPoint
             equation.m_shape.Tags.Add("LatexFontShape", equation.m_fontShape.fontShape);
             equation.m_shape.Tags.Add("LatexIsInline", equation.m_isInline.ToString());
             equation.m_shape.Tags.Add("LatexTextShapeId", equation.m_textShapeId.ToString());
-            equation.m_shape.Tags.Add("Latex4PowerPointVersion", AddinUtilities.getVersionString());
+            equation.m_shape.Tags.Add("LatexAddinVersion", AddinUtilities.getVersionString());
         }
 
         public static LatexEquation getLatexEquation(Shape s)
@@ -78,7 +78,7 @@ namespace Latex4PowerPoint
 
         public static string getLatex4PowerPointVersion(Shape s)
         {
-            return s.Tags["Latex4PowerPointVersion"];
+            return s.Tags["LatexAddinVersion"];
         }
 
         public static float getLatexFontSize(Shape s)
