@@ -36,10 +36,10 @@
             this.groupSettings = this.Factory.CreateRibbonGroup();
             this.checkBoxCursor = this.Factory.CreateRibbonCheckBox();
             this.buttonMiktex = this.Factory.CreateRibbonButton();
-            this.buttonInvert = this.Factory.CreateRibbonButton();
             this.tabLatex.SuspendLayout();
             this.groupLatex.SuspendLayout();
             this.groupSettings.SuspendLayout();
+            this.SuspendLayout();
             // 
             // tabLatex
             // 
@@ -80,7 +80,6 @@
             // 
             this.groupSettings.Items.Add(this.checkBoxCursor);
             this.groupSettings.Items.Add(this.buttonMiktex);
-            this.groupSettings.Items.Add(this.buttonInvert);
             this.groupSettings.Label = "Settings";
             this.groupSettings.Name = "groupSettings";
             // 
@@ -96,12 +95,6 @@
             this.buttonMiktex.Name = "buttonMiktex";
             this.buttonMiktex.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.buttonMiktex_Click);
             // 
-            // buttonInvert
-            // 
-            this.buttonInvert.Label = "Invert images";
-            this.buttonInvert.Name = "buttonInvert";
-            this.buttonInvert.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.buttonInvert_Click);
-            // 
             // Ribbon
             // 
             this.Name = "Ribbon";
@@ -114,6 +107,7 @@
             this.groupLatex.PerformLayout();
             this.groupSettings.ResumeLayout(false);
             this.groupSettings.PerformLayout();
+            this.ResumeLayout(false);
 
         }
 
@@ -124,7 +118,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonLatex;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonNewEquation;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonNewEqnArray;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonInvert;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupSettings;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox checkBoxCursor;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonMiktex;

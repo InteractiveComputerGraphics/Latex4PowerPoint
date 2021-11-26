@@ -117,20 +117,6 @@ namespace Latex4PowerPoint
             createLatexObject(template, "Create latex equation array");
         }
 
-        private void buttonInvert_Click(object sender, RibbonControlEventArgs e)
-        {
-            foreach (PowerPoint.Slide slide in ThisAddIn.Current.Application.ActivePresentation.Slides)
-            {
-                foreach (PowerPoint.Shape s in slide.Shapes)
-                {
-                    if ((ShapeTags.getLatexCode(s) != null) && (ShapeTags.getLatexCode(s) != ""))
-                    {
-                        s.BlackWhiteMode = Microsoft.Office.Core.MsoBlackWhiteMode.msoBlackWhiteBlack;
-                    }
-                }
-            }
-        }
-
         private void checkBoxCursor_Click(object sender, RibbonControlEventArgs e)
         {
             SettingsManager mgr = SettingsManager.getCurrent();
