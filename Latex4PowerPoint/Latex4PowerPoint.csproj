@@ -44,7 +44,7 @@
     <PublisherName>InteractiveComputerGraphics</PublisherName>
     <SupportUrl />
     <FriendlyName>Latex4PowerPoint</FriendlyName>
-    <OfficeApplicationDescription />
+    <OfficeApplicationDescription>This add-in enables to add and edit Latex equations or symbols in a Powerpoint slide easily.</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
