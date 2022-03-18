@@ -122,10 +122,12 @@ namespace Latex4PowerPoint
             {
                 return Color.Black;
             }
+            System.Globalization.CultureInfo ci;
+            ci = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             string[] col = colorText.Split(',');
-            float fred = Convert.ToSingle(col[0].Replace('.', ',')) * 255.0f;
-            float fgreen = Convert.ToSingle(col[1].Replace('.', ',')) * 255.0f;
-            float fblue = Convert.ToSingle(col[2].Replace('.', ',')) * 255.0f;
+            float fred = Convert.ToSingle(col[0], ci) * 255.0f;
+            float fgreen = Convert.ToSingle(col[1], ci) * 255.0f;
+            float fblue = Convert.ToSingle(col[2], ci) * 255.0f;
             return Color.FromArgb((int)fred, (int)fgreen, (int)fblue);
         }
 
